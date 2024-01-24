@@ -1,0 +1,20 @@
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/comments" />
+    <file type="web" url="file://$PROJECT_DIR$/config-server" />
+    <file type="web" url="file://$PROJECT_DIR$/discovery" />
+    <file type="web" url="file://$PROJECT_DIR$/friendships" />
+    <file type="web" url="file://$PROJECT_DIR$/gateway" />
+    <file type="web" url="file://$PROJECT_DIR$/likes" />
+    <file type="web" url="file://$PROJECT_DIR$/media" />
+    <file type="web" url="file://$PROJECT_DIR$/posts" />
+    <file type="web" url="file://$PROJECT_DIR$/users" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectRootManager">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
