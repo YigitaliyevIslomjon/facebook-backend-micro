@@ -3,11 +3,11 @@ package com.facebook.users.entity
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.GenericGenerator
-import org.springframework.data.annotation.Id
 import java.sql.Timestamp
 import java.util.*
 
-@Entity(name = "users")
+@Entity
+@Table(name = "users")
 data class User(
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -21,16 +21,15 @@ data class User(
     val lastName: String? = null,
 
     @Column(nullable = false, unique = true)
-    val email : String? = null,
+    val email: String? = null,
 
     @Column(nullable = false)
-    val password : String? = null,
+    val password: String? = null,
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    val birthdate : Date? = null,
+    val birthdate: Date? = null,
 
     @CreationTimestamp
-    val registrationDate : Timestamp? = null,
-
+    val registrationDate: Timestamp? = null
 )

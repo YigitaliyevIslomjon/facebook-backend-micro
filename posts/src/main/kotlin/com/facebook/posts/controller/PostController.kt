@@ -1,37 +1,37 @@
-package com.facebook.users.controller
+package com.facebook.posts.controller
+import com.facebook.posts.entity.Post
+import com.facebook.posts.payload.PostDto
+import com.facebook.posts.service.PostService
 import com.facebook.users.constants.AppConstants
-import com.facebook.users.entity.User
-import com.facebook.users.payload.Result
-import com.facebook.users.payload.UserDto
-import com.facebook.users.service.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import com.facebook.posts.payload.Result
 import java.util.UUID
 
 @RestController
 @RequestMapping("/api/v1/users")
-class UserController(val userService: UserService)     {
+class PostController(val postService: PostService)     {
 
     @PostMapping("/add")
-    fun add(@Validated @RequestBody dto: UserDto): ResponseEntity<Result> {
+    fun add(@Validated @RequestBody dto: PostDto): ResponseEntity<Result> {
 
-        val result = userService.add(dto)
+        val result = postService.add(dto)
         val httpStatus = if(result.success) HttpStatus.CREATED else HttpStatus.CONFLICT
         return ResponseEntity.status(httpStatus).body(result)
     }
 
     @PutMapping("/{id}")
-    fun edit(@PathVariable id: UUID, @RequestBody dto: UserDto): ResponseEntity<Result> {
-        val result = userService.edit(id = id,dto)
+    fun edit(@PathVariable id: UUID, @RequestBody dto: PostDto): ResponseEntity<Result> {
+        val result = postService.edit(id = id,dto)
         val httpStatus = if(result.success) HttpStatus.OK else HttpStatus.CONFLICT
         return ResponseEntity.status(httpStatus).body(result)
     }
 
     @GetMapping("/{id}")
-    fun getOne(@PathVariable id: UUID): ResponseEntity<User> {
-        val result = userService.getOne(id)
+    fun getOne(@PathVariable id: UUID): ResponseEntity<Post> {
+        val result = postService.getOne(id)
         return ResponseEntity.ok(result)
     }
 
@@ -41,14 +41,14 @@ class UserController(val userService: UserService)     {
         @RequestParam(value = "pageSize", defaultValue= AppConstants.DEFAULT_PAGE_SIZE, required = false) pageSize : Int,
         @RequestParam(value = "sortBy", defaultValue= AppConstants.DEFAULT_SORT_BY, required = false) sortBy : String,
         @RequestParam(value = "sortDir", defaultValue= AppConstants.DEFAULT_SORT_DIRECTION, required = false) sortDir : String
-    ): ResponseEntity<List<User>> {
-        val result = userService.getAll(pageNo, pageSize, sortBy, sortDir)
+    ): ResponseEntity<List<Post>> {
+        val result = postService.getAll(pageNo, pageSize, sortBy, sortDir)
         return ResponseEntity.ok(result)
     }
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: UUID): ResponseEntity<Result> {
-        val result = userService.delete(id = id)
+        val result = postService.delete(id = id)
         val httpStatus = if(result.success) HttpStatus.OK else HttpStatus.CONFLICT
         return ResponseEntity.status(httpStatus).body(result)
     }
