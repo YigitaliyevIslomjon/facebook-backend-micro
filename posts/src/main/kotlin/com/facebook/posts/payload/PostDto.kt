@@ -2,6 +2,7 @@ package com.facebook.posts.payload
 
 
 import jakarta.validation.constraints.NotBlank
+import java.sql.Timestamp
 import java.util.*
 
 data class PostDto(
@@ -12,5 +13,5 @@ data class PostDto(
     val content: String,
 
     @NotBlank()
-    val postDate: Date,
+    val postDate: Timestamp,
     )

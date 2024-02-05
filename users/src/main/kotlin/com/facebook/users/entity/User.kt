@@ -10,8 +10,8 @@ import java.util.*
 @Table(name = "users")
 data class User(
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     val id: UUID? = null,
 
     @Column(nullable = false)

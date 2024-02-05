@@ -1,4 +1,4 @@
-package com.facebook.users.constants
+package com.facebook.posts.constants
 
 
 class AppConstants {

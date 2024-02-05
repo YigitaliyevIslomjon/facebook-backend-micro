@@ -2,13 +2,14 @@ package com.facebook.posts.entity
 
 import jakarta.persistence.*
 import org.hibernate.annotations.GenericGenerator
+import java.sql.Timestamp
 import java.util.*
 
 @Entity
 data class Post(
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     val id: UUID? = null,
 
     @Column(nullable = false)
@@ -18,6 +19,5 @@ data class Post(
     val content: String? = null,
 
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    val postDate: Date? = null,
+    val postDate: Timestamp = Timestamp(System.currentTimeMillis()),
 )

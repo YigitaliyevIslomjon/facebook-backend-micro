@@ -8,7 +8,8 @@ import com.facebook.users.service.UserService
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
-import java.util.*
+import java.util.NoSuchElementException
+import java.util.UUID
 
 @Service
 class UserServiceImpl(private  val userRepository: UserRepository) : UserService {
@@ -37,12 +38,10 @@ class UserServiceImpl(private  val userRepository: UserRepository) : UserService
         return emptyList()
     }
 
-    override fun getOne(id: UUID): User {
+    override fun getOne(id: UUID): User? {
         val existingUser = userRepository.findById(id)
         if(existingUser.isEmpty){
-/*
-            throw UserNotFoundException("User not found with ID: $id")
-*/
+            throw NoSuchElementException("User not found with ID: $id")
         }
         return existingUser.get()
     }
@@ -50,7 +49,7 @@ class UserServiceImpl(private  val userRepository: UserRepository) : UserService
     override fun edit(id: UUID, dto:UserDto): Result {
         val existingUser = userRepository.findById(id)
         if(existingUser.isEmpty){
-            return Result(message = "id of user is not exist", success = false)
+            throw NoSuchElementException("id of user is not exist")
         }
         val updateUser = existingUser.get()
             .copy(firstName = dto.firstName,
@@ -68,10 +67,9 @@ class UserServiceImpl(private  val userRepository: UserRepository) : UserService
     override fun delete(id: UUID): Result {
         val existingUser = userRepository.findById(id)
         if(existingUser.isEmpty){
-            return Result(message = "id of user is not exist", success = false)
+            throw NoSuchElementException("id of user is not exist")
         }
         userRepository.deleteById(id)
         return  Result(message = "Data are deleted", success = true)
-
     }
 }

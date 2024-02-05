@@ -1,9 +1,9 @@
 package com.facebook.posts.controller
 import com.facebook.posts.entity.Post
+import com.facebook.posts.payload.FullPostResponse
 import com.facebook.posts.payload.PostDto
 import com.facebook.posts.service.PostService
-import com.facebook.users.constants.AppConstants
-import org.springframework.http.HttpStatus
+import com.facebook.posts.constants.AppConstants
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
@@ -11,22 +11,19 @@ import com.facebook.posts.payload.Result
 import java.util.UUID
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v1/post")
 class PostController(val postService: PostService)     {
 
     @PostMapping("/add")
     fun add(@Validated @RequestBody dto: PostDto): ResponseEntity<Result> {
-
         val result = postService.add(dto)
-        val httpStatus = if(result.success) HttpStatus.CREATED else HttpStatus.CONFLICT
-        return ResponseEntity.status(httpStatus).body(result)
+        return ResponseEntity.ok(result)
     }
 
     @PutMapping("/{id}")
     fun edit(@PathVariable id: UUID, @RequestBody dto: PostDto): ResponseEntity<Result> {
         val result = postService.edit(id = id,dto)
-        val httpStatus = if(result.success) HttpStatus.OK else HttpStatus.CONFLICT
-        return ResponseEntity.status(httpStatus).body(result)
+        return ResponseEntity.ok(result)
     }
 
     @GetMapping("/{id}")
@@ -49,8 +46,7 @@ class PostController(val postService: PostService)     {
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: UUID): ResponseEntity<Result> {
         val result = postService.delete(id = id)
-        val httpStatus = if(result.success) HttpStatus.OK else HttpStatus.CONFLICT
-        return ResponseEntity.status(httpStatus).body(result)
+        return ResponseEntity.ok(result)
     }
 
 }

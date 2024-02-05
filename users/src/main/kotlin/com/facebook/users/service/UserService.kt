@@ -11,7 +11,7 @@ interface UserService {
     fun edit(id: UUID, dto: UserDto) : Result
     fun delete(id: UUID): Result
     fun getOne(id: UUID) :  User?
-    fun getAll(pageNo: Int, pageSize:Int, sortBy:String, sortDir:String): List< User>
+    fun getAll(pageNo: Int, pageSize:Int, sortBy:String, sortDir:String): List<User>
 
 
 

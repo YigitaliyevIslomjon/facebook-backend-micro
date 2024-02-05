@@ -1,38 +1,32 @@
 package com.facebook.users.controller
+
 import com.facebook.users.constants.AppConstants
 import com.facebook.users.entity.User
 import com.facebook.users.payload.Result
 import com.facebook.users.payload.UserDto
 import com.facebook.users.service.UserService
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.util.UUID
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v1/user")
 class UserController(val userService: UserService)     {
 
     @PostMapping("/add")
     fun add(@Validated @RequestBody dto: UserDto): ResponseEntity<Result> {
-
-        val result = userService.add(dto)
-        val httpStatus = if(result.success) HttpStatus.CREATED else HttpStatus.CONFLICT
-        return ResponseEntity.status(httpStatus).body(result)
+        return ResponseEntity.ok(userService.add(dto))
     }
 
     @PutMapping("/{id}")
     fun edit(@PathVariable id: UUID, @RequestBody dto: UserDto): ResponseEntity<Result> {
-        val result = userService.edit(id = id,dto)
-        val httpStatus = if(result.success) HttpStatus.OK else HttpStatus.CONFLICT
-        return ResponseEntity.status(httpStatus).body(result)
+        return ResponseEntity.ok(userService.edit(id = id,dto))
     }
 
     @GetMapping("/{id}")
     fun getOne(@PathVariable id: UUID): ResponseEntity<User> {
-        val result = userService.getOne(id)
-        return ResponseEntity.ok(result)
+        return ResponseEntity.ok(userService.getOne(id))
     }
 
     @GetMapping("/pageable")
@@ -49,8 +43,7 @@ class UserController(val userService: UserService)     {
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: UUID): ResponseEntity<Result> {
         val result = userService.delete(id = id)
-        val httpStatus = if(result.success) HttpStatus.OK else HttpStatus.CONFLICT
-        return ResponseEntity.status(httpStatus).body(result)
+        return ResponseEntity.ok(result)
     }
 
 }
