@@ -1,37 +1,5 @@
-eureka:
-  client:
-    register-with-eureka: false
-
-server:
-  port: 8222
 spring:
   application:
     name: gateway
   config:
     import: optional:configserver:http://localhost:8888
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-      routes:
-        - id: likes
-          uri: http://localhost:8093
-          predicates:
-            - Path=/api/v1/like/**
-        - id: friendship
-          uri: http://localhost:8095
-          predicates:
-            - Path=/api/v1/friendship/**
-        - id: users
-          uri: http://localhost:8090
-          predicates:
-            - Path=/api/v1/user/**
-        - id: posts
-          uri: http://localhost:8091
-          predicates:
-            - Path=/api/v1/post/**
-        - id: comments
-          uri: http://localhost:8092
-          predicates:
-            - Path=/api/v1/comment/**
